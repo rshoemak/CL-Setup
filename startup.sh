@@ -53,10 +53,4 @@ echo
 
 vagrant up
 
-echo
-echo ***Opening up the Task List***
-echo
-
-open tasklist.txt
-
 echo ***THE STARTUP SCRIPT IS COMPLETE.***
