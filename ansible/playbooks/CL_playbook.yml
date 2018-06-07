@@ -133,3 +133,67 @@
           timeout: 120
         commands:
           - guestshell enable
+
+    - name: Install GIT
+      ios_command:
+        provider:
+          host: "{{mgmt_ip}}"
+          port: "{{ssh_port}}"
+          username: "{{username}}"
+          password: "{{password}}"
+          timeout: 120
+        commands:
+          - guestshell run sudo yum install -y git
+
+    - name: Update nss, curl and libcurl
+      ios_command:
+        provider:
+          host: "{{mgmt_ip}}"
+          port: "{{ssh_port}}"
+          username: "{{username}}"
+          password: "{{password}}"
+          timeout: 120
+        commands:
+          - guestshell run sudo yum update -y nss curl libcurl
+
+    - name: Clone the Repo
+      ios_command:
+        provider:
+          host: "{{mgmt_ip}}"
+          port: "{{ssh_port}}"
+          username: "{{username}}"
+          password: "{{password}}"
+          timeout: 60
+        commands:
+          - guestshell run git clone https://github.com/rshoemak/DevNet2556.git
+
+    - name: Launch Final Laptop Prep Script
+      ios_command:
+        provider:
+          host: "{{mgmt_ip}}"
+          port: "{{ssh_port}}"
+          username: "{{username}}"
+          password: "{{password}}"
+          timeout: 120
+        commands:
+           - guestshell run /home/guestshell/DevNet2556/laptop-prep.sh
+
+    - name: Copy IOS starting Config to running
+      ios_config:
+        provider:
+          host: "{{mgmt_ip}}"
+          port: "{{ssh_port}}"
+          username: "{{username}}"
+          password: "{{password}}"
+        commands:
+         - file prompt quiet
+
+    - name: Copy IOS starting Config to running
+      ios_command:
+        provider:
+          host: "{{mgmt_ip}}"
+          port: "{{ssh_port}}"
+          username: "{{username}}"
+          password: "{{password}}"
+        commands:
+           - copy bootflash:IOS-config-base.txt running-config
