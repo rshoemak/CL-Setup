@@ -2,8 +2,6 @@ conf t
 
 
 interface GigabitEthernet1
- description WAN
- ip address dhcp
  ip nat outside
 
 interface Gigabit 2
@@ -37,5 +35,10 @@ ip nat inside source list NAT_ACL interface GigabitEthernet1 overload
 app-hosting appid guestshell
   vnic gateway1 virtualportgroup 0 guest-interface 0 guest-ipaddress 192.168.35.2 netmask 255.255.255.0 gateway 192.168.35.1 name-server 8.8.8.8 default
   resource profile custom cpu 1500 memory 512
+
+
+
+
+
 
 guestshell enable
