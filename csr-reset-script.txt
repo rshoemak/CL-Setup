@@ -1,0 +1,20 @@
+conf t
+
+logging monitor alarm
+
+interface GigabitEthernet1
+  no service-policy output linkdown-egress-shape
+  service-policy output normal-egress-shape
+
+interface Loopback0
+  no shutdown
+
+no event manager applet 1WAN
+no event manager applet interface_Shutdown
+
+no interface Loopback66
+no interface Loopback77
+
+end
+
+wr
